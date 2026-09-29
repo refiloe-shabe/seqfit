@@ -1,0 +1,14 @@
+FROM python:3.10.12-slim-bullseye
+
+RUN apt update && apt upgrade -y && apt install -y --no-install-recommends git \
+    && apt clean autoclean \
+    && apt autoremove -y \
+    && rm -rf /var/lib/{apt,dpkg,cache,log}
+
+# Set the working directory to /app
+WORKDIR /app
+
+COPY requirements.txt requirements.txt
+
+# Install Python dependencies from requirements.txt
+RUN pip install -r requirements.txt
